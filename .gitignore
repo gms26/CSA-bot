@@ -1,0 +1,15 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+
+# Generated datasets and embeddings
+processed/
+results/
+
+# Python / tooling
+.pytest_cache/
+.vscode/
+.idea/
+# Full Kaggle dataset
+raw/twcs/
