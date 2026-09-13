@@ -4,151 +4,44 @@
 
 \## Dataset
 
+The golden evaluation set was created from the Customer Support on Twitter dataset, using customer messages directed to AppleSupport.
 
+## Sampling
 
-The golden evaluation set was created from the Customer Support on Twitter
+An initial sample of 500 AppleSupport customer messages was created and labeled for use as the training and holdout sets (`intent_train.csv` and `intent_test.csv`).
 
-dataset, using customer messages directed to AppleSupport.
+To ensure a strict, unbiased evaluation with **zero data leakage**, a completely separate random sample of 200 AppleSupport messages was generated. These 200 messages are **strictly disjoint** from the 500-example training/test pool. 
 
+This final independent set of 200 examples satisfies the assignment requirement of 150–250 examples.
 
+## Labelling
 
-\## Sampling
-
-
-
-An initial sample of 500 AppleSupport customer messages was created using a
-
-fixed random seed (`random\_state=42`). These 500 messages were manually
-
-reviewed and labelled.
-
-
-
-For the final golden evaluation set, 200 of the manually labelled examples
-
-were selected using the same fixed random seed (`random\_state=42`).
-
-
-
-The final set therefore contains 200 hand-labelled examples, satisfying the
-
-assignment requirement of 150–250 examples.
-
-
-
-\## Labelling
-
-
-
-Each customer message was assigned exactly one primary intent using the
-
-AppleSupport-specific intent taxonomy defined in `docs/intent\_taxonomy.md`.
-
-
+Each customer message was assigned exactly one primary intent using the AppleSupport-specific intent taxonomy defined in `docs/intent_taxonomy.md`.
 
 The taxonomy contains 11 intents:
 
+- I1 — Software / iOS / macOS Issue
+- I2 — Battery / Charging / Power
+- I3 — App / App Store / App Update Issue
+- I4 — Connectivity / Network
+- I5 — Messages / Communication
+- I6 — Device / Hardware Issue
+- I7 — Account / iCloud / Security
+- I8 — Apple Services / Media
+- I9 — Purchase / Order / Repair / Warranty
+- I10 — How-to / Settings / Information
+- I11 — Other / Unclear
 
+The labelling process used the message's primary customer problem rather than individual keywords. For messages containing multiple symptoms, the main problem was selected. Messages with insufficient standalone context were labelled I11.
 
-\- I1 — Software / iOS / macOS Issue
+Each labelled example also contains a label confidence (usually "high") and a short human-written reason explaining *why* the assigned intent was chosen based on the context of the tweet.
 
-\- I2 — Battery / Charging / Power
-
-\- I3 — App / App Store / App Update Issue
-
-\- I4 — Connectivity / Network
-
-\- I5 — Messages / Communication
-
-\- I6 — Device / Hardware Issue
-
-\- I7 — Account / iCloud / Security
-
-\- I8 — Apple Services / Media
-
-\- I9 — Purchase / Order / Repair / Warranty
-
-\- I10 — How-to / Settings / Information
-
-\- I11 — Other / Unclear
-
-
-
-The labelling process used the message's primary customer problem rather than
-
-individual keywords. For messages containing multiple symptoms, the main
-
-problem was selected. Messages with insufficient standalone context were
-
-labelled I11.
-
-
-
-Each labelled example also contains a label confidence and a short reason
-
-explaining the assigned intent.
-
-
-
-\## Final Golden Set
-
-
+## Final Golden Set
 
 The final set contains:
+- 200 examples
+- Disjoint from the training set (no contamination)
 
+## Important evaluation note
 
-
-\- 200 examples
-
-\- 11 represented intents
-
-\- 0 missing intent labels
-
-
-
-The intent distribution is:
-
-
-
-| Intent | Examples |
-
-|---|---:|
-
-| I1 | 74 |
-
-| I10 | 10 |
-
-| I11 | 50 |
-
-| I2 | 12 |
-
-| I3 | 12 |
-
-| I4 | 5 |
-
-| I5 | 4 |
-
-| I6 | 6 |
-
-| I7 | 8 |
-
-| I8 | 13 |
-
-| I9 | 6 |
-
-| \*\*Total\*\* | \*\*200\*\* |
-
-
-
-\## Important evaluation note
-
-
-
-The 200 examples were selected from a larger manually labelled sample of
-
-500 examples. The golden labels were created before using this final subset
-
-for evaluation. The set is intended as a held-out evaluation artifact for
-
-the project and should not be used to train the final classifier.
-
+This golden evaluation set serves as the true held-out benchmark for the system's intent classification capabilities. Because it is completely disjoint from the training data, performance on this set accurately reflects the model's ability to generalize to unseen AppleSupport messages.
