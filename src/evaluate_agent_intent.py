@@ -5,7 +5,7 @@ from sklearn.metrics import (
     classification_report,
 )
 
-from intent_classifier import IntentClassifier
+from src.intent_classifier import IntentClassifier
 
 
 INPUT_FILE = "processed/intent_test.csv"
